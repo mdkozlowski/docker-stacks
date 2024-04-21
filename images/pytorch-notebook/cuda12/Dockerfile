@@ -13,10 +13,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Install PyTorch with pip (https://pytorch.org/get-started/locally/)
 # hadolint ignore=DL3013
-RUN pip install --no-cache-dir --extra-index-url=https://pypi.nvidia.com --index-url 'https://download.pytorch.org/whl/cu121' \
-    'torch' \
-    'torchvision' \
-    'torchaudio'  && \
+RUN mamba install "pytorch=2.2.0" torchvision torchaudio pytorch-cuda=12.1 -c pytorch -c nvidia -v --yes && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
 
